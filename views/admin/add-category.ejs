@@ -1,0 +1,19 @@
+<%- include('../_layout/adminHeader.ejs') %>
+    
+<div class="container">
+    <h2 class="page-title display-4">Add a Category</h2><br>
+<a href="/admin/category" class="btn btn-primary" style="border-radius: 0; font-family: 'Roboto Slab', serif;"  ">Back to all category</a>
+<br><br>
+
+<form method="post" action="/admin/category/add-category">
+    
+    
+        <label style = "font-family: 'Roboto Slab', serif;">Title</label>
+        <input type="text" class="form-control" style="border-radius: 0;"  name="title" value="<%= title %>" placeholder="Title">
+        <br>      
+                     
+    <button style = "font-family: 'Roboto Slab', serif;" class="btn btn-info"  style="border-radius: 0;" >Submit</button>
+    </form>
+</div>
+
+<%- include('../_layout/adminfooter.ejs') %>

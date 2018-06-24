@@ -12,6 +12,7 @@ const config = require('./config/database');
 //get route paths
 const pageRouter = require('./routes/page');
 const adminRouter = require('./routes/admin_page');
+const adminCategory = require('./routes/admin_category');
 
 // database connection
 mongoose.connect(config.database);
@@ -81,6 +82,7 @@ app.set('view engine', 'ejs');
 // set routes
 app.use('/', pageRouter);
 app.use('/admin', adminRouter);
+app.use('/admin/category', adminCategory);
 
 // static folder
 app.use(express.static(path.join(__dirname, 'public')));

@@ -1,11 +1,11 @@
 <%- include('../_layout/adminHeader.ejs') %>
     
 <div class="container">
-    <h2 class="page-title display-4">Add a page</h2><br>
+    <h2 class="page-title display-4">Edit a page</h2><br>
 <a href="/admin" class="btn btn-primary" style="border-radius: 0; font-family: 'Roboto Slab', serif;"  ">Back to all pages</a>
 <br><br>
 
-<form method="post" action="/admin/add-page">
+<form method="post" action="/admin/edit-page/<%= slug %>">
     
     
         <label style = "font-family: 'Roboto Slab', serif;">Title</label>
@@ -21,6 +21,8 @@
         <label for="" style = "font-family: 'Roboto Slab', serif;">Content</label>
         <textarea name="content" class="form-control" id="ta"  style="border-radius: 0;" cols="30" rows="10" placeholder="Content"><%= content %></textarea>
         <br>  
+
+        <input type="hidden" name="id" value="<%= id %>">
     
     <button style = "font-family: 'Roboto Slab', serif;" class="btn btn-info"  style="border-radius: 0;" >Submit</button>
     </form>

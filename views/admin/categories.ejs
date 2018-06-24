@@ -1,0 +1,28 @@
+<%- include('../_layout/adminHeader.ejs') %>
+    
+
+    <h2 class="page-title display-4">Categories</h2><br>
+    <a href="/admin/category" class="btn btn-primary" style="border-radius: 0; font-family: 'Roboto Slab', serif;"  ">All Cateogories</a>
+    <a href="/admin/category/add-category" class="btn btn-primary" style="border-radius: 0; font-family: 'Roboto Slab', serif;"  ">Add Category</a>
+<br><br>
+
+<table class = "table table-striped">
+    <thead>
+        <tr>
+            <th>Category</th>
+           
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% categories.forEach(function(cat){ %>
+            <tr>
+                <td> <%= cat.title %> </td>                 
+                       
+                <td><a href = "/admin/category/delete-category/<%= cat._id %>">Delete</a></td>                         
+            </tr>
+        <%   }); %>
+    </tbody>
+</table>
+</div>
+<%- include('../_layout/adminfooter.ejs') %>
