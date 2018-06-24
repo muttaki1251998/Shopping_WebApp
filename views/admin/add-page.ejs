@@ -1,0 +1,23 @@
+<%- include('../_layout/adminHeader.ejs') %>
+    
+<div class="container">
+    <h2 class="page-title display-4">Add a page</h2><br>
+<a href="/admin/pages" class="btn btn-primary" style="border-radius: 0; font-family: 'Roboto Slab', serif;"  ">Back to all pages</a>
+<br><br>
+
+<form method="post" action="/admin/add-page">
+    
+    
+        <label style = "font-family: 'Roboto Slab', serif;">Title</label>
+        <input type="text" class="form-control" style="border-radius: 0;"  name="title" value="<%= title %>" placeholder="Title">
+        <br>   
+    
+
+        <label for="" style = "font-family: 'Roboto Slab', serif;">Content</label>
+        <textarea name="content" class="form-control" id="ta"  style="border-radius: 0;" cols="30" rows="10" placeholder="Content"><%= content %></textarea>
+        <br>  
+    
+    <button style = "font-family: 'Roboto Slab', serif;" class="btn btn-info"  style="border-radius: 0;" >Submit</button>
+</div>
+
+<%- include('../_layout/adminfooter.ejs') %>
