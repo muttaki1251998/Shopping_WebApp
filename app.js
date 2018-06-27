@@ -8,11 +8,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const config = require('./config/database');
+const fileUpload = require('express-fileupload');
 
 //get route paths
 const pageRouter = require('./routes/page');
-const adminRouter = require('./routes/admin_page');
+const adminPage = require('./routes/admin_page');
 const adminCategory = require('./routes/admin_category');
+const adminProduct = require('./routes/admin_product');;
 
 // database connection
 mongoose.connect(config.database);
@@ -28,6 +30,9 @@ mongoose.connection.on('err', (err) => {
 // app init
 const app = express();
 const port = process.env.PORT || 4000;
+
+// fileUpload mw
+app.use(fileUpload());
 
 // bodyparser mw
 app.use(bodyParser.json());
@@ -59,6 +64,23 @@ app.use(expressValidator({
             msg   : msg,
             value : value
         };
+    },
+    customValidators:{
+        isImage: function(value, filename){
+            var extension = (path.extname(filename)).toLowerCase();
+            switch(extension){
+                case '.jpg':
+                    return '.jpg';
+                case '.png':
+                    return '.png';
+                case '.jpeg':
+                    return '.jpeg';
+                case '':
+                    return '.jpg';
+                default:
+                    return false;
+            }
+        }
     }
 }));
 
@@ -79,13 +101,14 @@ app.use(function(req, res, next){
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// set routes
-app.use('/', pageRouter);
-app.use('/admin', adminRouter);
-app.use('/admin/category', adminCategory);
-
 // static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// set routes
+app.use('/', pageRouter);
+app.use('/admin', adminPage);
+app.use('/admin/category', adminCategory);
+app.use('/admin/product', adminProduct);
 
 // set errors variable
  app.locals.errors = null;

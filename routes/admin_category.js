@@ -1,7 +1,6 @@
 const express = require('express');
 const expressValidator = require('express-validator');
 const router = express.Router();
-// const Page = require('../models/pageModel');
 const Category = require('../models/categoryModel');
 
 router.get('/', (req, res) => {    
