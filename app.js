@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const session = require('express-session');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const config = require('./config/database');
 const fileUpload = require('express-fileupload');
+
 
 //get route paths
 const pageRouter = require('./routes/page');
@@ -17,6 +17,7 @@ const adminCategory = require('./routes/admin_category');
 const adminProduct = require('./routes/admin_product');;
 const products = require('./routes/products');
 const cart = require('./routes/cart');
+const users = require('./routes/users');
 
 // Require page model
 const Page = require('./models/pageModel');
@@ -53,6 +54,7 @@ app.use(session({
     resave: true
 }));
 
+require('./config/passport')(passport);
 // passport mw
 app.use(passport.initialize());
 app.use(passport.session());
@@ -94,6 +96,7 @@ app.use(expressValidator({
 
 app.get('*', (req, res, next) => {
     res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
     next();
 });
 
@@ -124,6 +127,7 @@ app.use('/admin/category', adminCategory);
 app.use('/admin/product', adminProduct);
 app.use('/products', products);
 app.use('/cart', cart);
+app.use('/users', users);
 
 // set errors variable
  app.locals.errors = null;

@@ -3,6 +3,8 @@ const router = express.Router();
 const fs = require('fs-extra');
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
+const auth = require('../config/auth');
+const isUser = auth.isUser;
 
 router.get('/', (req, res) => {
     //res.render("sd");
@@ -35,6 +37,7 @@ router.get('/:category', (req, res) => {
 router.get('/:category/:product', (req, res) => {    
     
     var productSlug = req.params.product;
+    var loggedIn = (req.isAuthenticated()) ? true : false;
 
     Product.findOne({slug: productSlug}, (err, product) => {
        var images = null;
@@ -52,7 +55,8 @@ router.get('/:category/:product', (req, res) => {
                     res.render('product', {
                         title: product.title,
                         p: product,
-                        images: images
+                        images: images,
+                        loggedIn: loggedIn
                     });
                 }
             });

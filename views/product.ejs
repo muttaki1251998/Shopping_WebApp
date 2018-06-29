@@ -10,7 +10,11 @@
     <div class="col-md-5">
         <span style="font-family: 'Ubuntu', sans-serif; font-size: 20px"> <%= p.desc %> </span><br>
         <p  style="font-family: 'Ubuntu', sans-serif; font-size: 20px">$<%= parseFloat(p.price).toFixed(2) %></p>
-        <p><a href="/cart/add/<%= p.slug %>"  style="font-family: 'Ubuntu', sans-serif; font-size: 20px">Add to cart</a></p>
+        <% if(loggedIn){ %>
+            <p><a href="/cart/add/<%= p.slug %>"  style="font-family: 'Ubuntu', sans-serif; font-size: 20px">Add to cart</a></p>
+        <% }else{ %>
+            <p>You must be logged in to purchase</p>
+        <% } %>        
     </div>
 </div>
 

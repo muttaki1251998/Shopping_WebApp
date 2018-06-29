@@ -24,14 +24,14 @@
               <% if(page.slug == "home"){ %>
                 <li class="nav-item"><a href="/" class="nav-link"> <%= page.title %> </a></li>
               <% }else{ %>
-                <li class="nav-item"><a href="<%= page.slug %>" class="nav-link"> <%= page.title %> </a></li>
+                <li class="nav-item"><a href="/<%= page.slug %>" class="nav-link"> <%= page.title %> </a></li>
               <% } %>
 
             <% }) %>                      
           </ul>
           <ul class="navbar-nav ml-auto">
-            <li>
-              <a href="/cart/checkout">My Cart (
+            <li class="nav-item">
+              <a href="/cart/checkout" class="nav-link">My Cart (
                   <% if (typeof cart !== "undefined") { %>
                   <%= cart.length %>
                   <% } else {%>
@@ -39,7 +39,18 @@
                   <% } %>
               )</a>
           </li>                     
-          </ul>
+         
+          <% if(user){ %>
+            <li class="nav-item"><a href="/users/logout" class="nav-link">Logout</a></li>
+          <% }else{ %>
+            <li class="nav-item"><a href="/users/register" class="nav-link">Register</a></li>
+            <li class="nav-item"><a href="/users/login" class="nav-link">Log In</a></li>
+          <% } %>  
+          
+          <% if(user && user.admin == 1){ %>
+            <li class="nav-item"><a href="/admin" class="nav-link">Admin Area</a></li> 
+          <% } %>
+        </ul>      
         </div>
       </nav>
     
