@@ -27,7 +27,7 @@
                     <% if(product.image == ""){ %>
                         <img src="/images/noimage.png" style="height: 80px; width: 80px;" >
                     <% }else{ %>
-                        <img src="/product_images/<%= product.image %>" style="height: 80px; width: 80px;" >
+                       <img src="/product_images/<%= product._id %>/<%= product.image %>" style="height: 80px; width: 80px;">
                     <% } %>
                 </td>   
                 <td><a href="/admin/product/delete-product/<%= product._id %>">Delete</a></td>              

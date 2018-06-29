@@ -97,17 +97,17 @@ router.post('/add-product', (req, res) => {
                             return console.log(err);
                         });
 
-                        mkdirp('public/product_images/' + product._id + '/gallery', (err) => {
-                            return console.log(err);
-                        });
+                        // mkdirp('public/product_images/' + product._id + '/gallery', (err) => {
+                        //     return console.log(err);
+                        // });
 
-                        mkdirp('public/product_images/' + product._id + 'gallery/thumbs', (err) => {
-                            return console.log(err);
-                        });
+                        // mkdirp('public/product_images/' + product._id + 'gallery/thumbs', (err) => {
+                        //     return console.log(err);
+                        // });
 
                         if(imageFile != ""){
                             var productImage = req.files.image;
-                            var path = 'public/product_image/' + product._id + '/' + imageFile;
+                            var path = 'public/product_images/' + product._id + '/' + imageFile;
 
                             productImage.mv(path, (err) => {
                                 return console.log(err);

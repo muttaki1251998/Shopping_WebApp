@@ -15,6 +15,14 @@ const pageRouter = require('./routes/page');
 const adminPage = require('./routes/admin_page');
 const adminCategory = require('./routes/admin_category');
 const adminProduct = require('./routes/admin_product');;
+const products = require('./routes/products');
+const cart = require('./routes/cart');
+
+// Require page model
+const Page = require('./models/pageModel');
+
+// Require category model
+const Category = require('./models/categoryModel');
 
 // database connection
 mongoose.connect(config.database);
@@ -84,6 +92,11 @@ app.use(expressValidator({
     }
 }));
 
+app.get('*', (req, res, next) => {
+    res.locals.cart = req.session.cart;
+    next();
+});
+
 // connect-flash
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
@@ -109,9 +122,23 @@ app.use('/', pageRouter);
 app.use('/admin', adminPage);
 app.use('/admin/category', adminCategory);
 app.use('/admin/product', adminProduct);
+app.use('/products', products);
+app.use('/cart', cart);
 
 // set errors variable
  app.locals.errors = null;
+
+// display all pages in header
+Page.find({}).sort({sorting: 1}).exec((err, pages) => {
+    if(err) console.log(err);
+    app.locals.pages = pages;    
+});
+
+// display the categories
+Category.find((err, categories) => {
+    if(err) console.log(err);
+    app.locals.categories = categories;
+});
  
 app.use(function(err, req, res, next){
     res.locals.message = err.message;
