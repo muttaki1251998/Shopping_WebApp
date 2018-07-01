@@ -26,15 +26,11 @@ const Page = require('./models/pageModel');
 const Category = require('./models/categoryModel');
 
 // database connection
-mongoose.connect(config.database);
+mongoose.connect(config.database)
+.then(() => console.log('connection successful'))
+.catch((err) => console.error(err));;
 
-// test connection
-mongoose.connection.on('connected', () => {
-	console.log("Connected to shop database");
-});
-mongoose.connection.on('err', (err) => {
-	console.log("Failed to connect to database");
-});
+
 
 // app init
 const app = express();
